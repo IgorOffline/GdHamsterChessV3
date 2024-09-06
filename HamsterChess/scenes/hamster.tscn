@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bemji8w8vkw5c"]
+
+[ext_resource type="Texture2D" uid="uid://ipfokmr5vj36" path="res://icon.svg" id="1_1j3dd"]
+[ext_resource type="Script" path="res://scripts/Hamster.cs" id="1_u6e4y"]
+
+[node name="Hamster" type="Node2D"]
+script = ExtResource("1_u6e4y")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(108, 104)
+texture = ExtResource("1_1j3dd")
