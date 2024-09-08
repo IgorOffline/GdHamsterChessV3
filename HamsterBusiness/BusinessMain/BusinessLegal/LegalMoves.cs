@@ -44,6 +44,23 @@ public class LegalMoves
             for (var col = 0; col < 8; col++)
             {
                 var boardSquare = gameMaster.PBoard.PBoard[row][col];
+                if (boardSquare.Piece == Piece.Rook && boardSquare.PieceColor == pieceColor)
+                {
+                    var rookMoves = Rook.RookMoves(boardSquare, gameMaster.PBoard);
+                    phase1LegalMoves[boardSquare] = rookMoves.MovementSquares;
+                    kingLegalMoves.RemoveAll(square =>
+                        square.Letter == boardSquare.Letter && square.Number == boardSquare.Number);
+                }
+                else if (boardSquare.Piece == Piece.Rook && boardSquare.PieceColor == oppositePieceColor)
+                {
+                    var oppositeRookMoves = Rook.RookMoves(boardSquare, gameMaster.PBoard);
+                    kingLegalMoves.RemoveAll(e => oppositeRookMoves.MovementSquares.Contains(e));
+                    if (oppositeRookMoves.OpponentsKingInCheck)
+                    {
+                        gameMaster.WhiteKingInCheck = pieceColor == PieceColor.White;
+                        gameMaster.BlackKingInCheck = pieceColor == PieceColor.Black;
+                    }
+                }
                 // TODO Pieces
             }
         }

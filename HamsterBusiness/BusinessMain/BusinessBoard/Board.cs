@@ -18,6 +18,7 @@ public class Board
         var filledSquares = new List<Square>
         {
             new(Letter.E, Number2.N3, Piece.King, PieceColor.White),
+            new(Letter.D, Number2.N4, Piece.Rook, PieceColor.White),
             new(Letter.E, Number2.N6, Piece.King, PieceColor.Black)
         };
 
