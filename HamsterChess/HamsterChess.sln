@@ -2,7 +2,7 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamsterChess", "HamsterChess.csproj", "{1E9F86F5-5129-45AA-8FEA-097587EA9CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamsterBusiness", "HamsterBusiness\HamsterBusiness.csproj", "{1647F18E-F323-422C-9B79-CA6E9E6E2696}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamsterBusiness", "..\HamsterBusiness\HamsterBusiness.csproj", "{19023496-B543-47AF-86B8-BBCC6A485B13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,11 +17,11 @@ Global
 		{1E9F86F5-5129-45AA-8FEA-097587EA9CE9}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{1E9F86F5-5129-45AA-8FEA-097587EA9CE9}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{1E9F86F5-5129-45AA-8FEA-097587EA9CE9}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
-		{1647F18E-F323-422C-9B79-CA6E9E6E2696}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{19023496-B543-47AF-86B8-BBCC6A485B13}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

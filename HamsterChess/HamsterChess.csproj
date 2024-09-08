@@ -7,4 +7,37 @@
     <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\Board.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\Board.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\Piece.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\Piece.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\Letter.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\Letter.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\Square.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\Square.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\Number2.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\Number2.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\PieceColor.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\PieceColor.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessBoard\LetterNumber.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessBoard\LetterNumber.cs</Link>
+    </Compile>
+    <Compile Update="HamsterBusiness1\BusinessMain\BusinessUtil\Messages.cs">
+      <Link>HamsterBusiness\BusinessMain\BusinessUtil\Messages.cs</Link>
+    </Compile>
+    <Compile Remove="HamsterBusiness1\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="HamsterBusiness1\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HamsterBusiness\HamsterBusiness.csproj" />
+  </ItemGroup>
 </Project>
