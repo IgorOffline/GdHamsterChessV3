@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using HamsterBusiness.BusinessMain.BusinessBoard;
 using HamsterBusiness.BusinessMain.BusinessGame;
+using HamsterBusiness.BusinessMain.BusinessPiece;
 
 namespace HamsterBusiness.BusinessMain.BusinessLegal;
 
@@ -36,7 +37,7 @@ public class LegalMoves
 
         var king = FindKing(gameMaster, pieceColor);
 
-        var kingLegalMoves = King.kingMoves(king, gameMaster.PBoard);
+        var kingLegalMoves = King.KingMoves(king, gameMaster.PBoard);
 
         for (var row = 0; row < 8; row++)
         {

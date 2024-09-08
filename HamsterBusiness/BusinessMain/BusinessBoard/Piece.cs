@@ -4,5 +4,6 @@ public enum Piece : ushort
 {
     None,
     King,
-    Rook
+    Rook,
+    Bishop // TODO FindSquare
 }
