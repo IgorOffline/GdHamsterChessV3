@@ -10,6 +10,11 @@ public partial class Hamster : Node2D
     private PackedScene? _whiteKingScene;
     private PackedScene? _whiteRookScene;
     private PackedScene? _blackKingScene;
+
+    private GameMaster? _gameMaster;
+    
+    private double _uiRefreshTimer;
+    private double _uiRefreshTimerMax = 0.11;
     
     public override void _Ready()
     {
@@ -20,13 +25,13 @@ public partial class Hamster : Node2D
         
         Ready2(boardSquares);
         
-        var gameMaster = new GameMaster();
+        _gameMaster = new GameMaster();
         
         for (var row = 0; row < 8; row++)
         {
             for (var column = 0; column < 8; column++)
             {
-                var square = gameMaster.PBoard.PBoard[row][column];
+                var square = _gameMaster.PBoard.PBoard[row][column];
                 
                 if (square.Piece != Piece.None)
                 {
@@ -38,13 +43,6 @@ public partial class Hamster : Node2D
                 }
             }
         }
-
-        var labelParent = GetNode<VBoxContainer>("PanelContainer/VBoxContainer");
-        labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{("White to move:"),-23} {gameMaster.WhiteToMove.ToString()}";
-        labelParent.GetNode<RichTextLabel>("LabelWKCheck").Text = $"{"White in check:",-24} {gameMaster.WhiteKingInCheck.ToString()}";
-        labelParent.GetNode<RichTextLabel>("LabelBKCheck").Text = $"{"Black in check:",-25} {gameMaster.BlackKingInCheck.ToString()}";
-        labelParent.GetNode<RichTextLabel>("LabelWKCheckmate").Text = $"{"White checkmated:",-19} {gameMaster.WhiteKingCheckmated.ToString()}";
-        labelParent.GetNode<RichTextLabel>("LabelBKCheckmate").Text = $"{"Black checkmated:",-20} {gameMaster.BlackKingCheckmated.ToString()}";
     }
 
     private Node2D Instantiate(Square square)
@@ -90,5 +88,18 @@ public partial class Hamster : Node2D
     
     public override void _Process(double delta)
     {
+        _uiRefreshTimer += delta;
+
+        if (_uiRefreshTimer > _uiRefreshTimerMax)
+        {
+            var labelParent = GetNode<VBoxContainer>("PanelContainer/VBoxContainer");
+            labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{("White to move:"),-23} {_gameMaster!.WhiteToMove.ToString()}";
+            labelParent.GetNode<RichTextLabel>("LabelWKCheck").Text = $"{"White in check:",-24} {_gameMaster.WhiteKingInCheck.ToString()}";
+            labelParent.GetNode<RichTextLabel>("LabelBKCheck").Text = $"{"Black in check:",-25} {_gameMaster.BlackKingInCheck.ToString()}";
+            labelParent.GetNode<RichTextLabel>("LabelWKCheckmate").Text = $"{"White checkmated:",-19} {_gameMaster.WhiteKingCheckmated.ToString()}";
+            labelParent.GetNode<RichTextLabel>("LabelBKCheckmate").Text = $"{"Black checkmated:",-20} {_gameMaster.BlackKingCheckmated.ToString()}";
+            
+            _uiRefreshTimer = 0;
+        }
     }
 }
