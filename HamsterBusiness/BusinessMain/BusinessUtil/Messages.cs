@@ -1,6 +1,6 @@
 ﻿namespace HamsterBusiness.BusinessMain.BusinessUtil;
 
-public class Messages
+public static class Messages
 {
     public const string LoremIpsum = "Lorem Ipsum";
     public const string UnknownLetter = "Unknown Letter";
