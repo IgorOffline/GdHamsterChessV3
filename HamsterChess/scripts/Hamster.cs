@@ -14,7 +14,7 @@ public partial class Hamster : Node2D
     private GameMaster? _gameMaster;
     
     private double _uiRefreshTimer;
-    private double _uiRefreshTimerMax = 0.11;
+    private double _uiRefreshTimerMax = 0.25;
     
     public override void _Ready()
     {
