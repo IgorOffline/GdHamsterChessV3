@@ -38,6 +38,13 @@ public partial class Hamster : Node2D
                 }
             }
         }
+
+        var labelParent = GetNode<VBoxContainer>("PanelContainer/VBoxContainer");
+        labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{("White to move:"),-23} {gameMaster.WhiteToMove.ToString()}";
+        labelParent.GetNode<RichTextLabel>("LabelWKCheck").Text = $"{"White in check:",-24} {gameMaster.WhiteKingInCheck.ToString()}";
+        labelParent.GetNode<RichTextLabel>("LabelBKCheck").Text = $"{"Black in check:",-25} {gameMaster.BlackKingInCheck.ToString()}";
+        labelParent.GetNode<RichTextLabel>("LabelWKCheckmate").Text = $"{"White checkmated:",-19} {gameMaster.WhiteKingCheckmated.ToString()}";
+        labelParent.GetNode<RichTextLabel>("LabelBKCheckmate").Text = $"{"Black checkmated:",-20} {gameMaster.BlackKingCheckmated.ToString()}";
     }
 
     private Node2D Instantiate(Square square)
