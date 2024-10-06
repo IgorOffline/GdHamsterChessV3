@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctsm2blx517hi"]
+
+[ext_resource type="Texture2D" uid="uid://dwns8tk2fipwn" path="res://assets/Chess_klt45_p.png" id="1_8ngwn"]
+
+[node name="PieceWk" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.098, 0.098)
+texture = ExtResource("1_8ngwn")

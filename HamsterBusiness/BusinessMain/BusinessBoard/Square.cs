@@ -15,6 +15,13 @@ public class Square(Letter letter, Number2 number, Piece piece, PieceColor piece
     public static bool IsLetterNumberEqual(Letter letter1, Letter letter2, Number2 number1, Number2 number2) {
         return letter1 == letter2 && number1 == number2;
     }
+
+    public bool IsLetterNumberEqual(string squareLabel)
+    {
+        var newSquare = new Square(LetterNumber.GetLetterEnumForLabelPart(squareLabel[0]), 
+            LetterNumber.GetNumberEnumForLabelPart(squareLabel[1]), Piece.None, PieceColor.None);
+        return IsLetterNumberEqual(Letter, newSquare.Letter, Number, newSquare.Number);
+    }
     
     public Square Copy() {
         return new Square(letter, number, piece, pieceColor);
