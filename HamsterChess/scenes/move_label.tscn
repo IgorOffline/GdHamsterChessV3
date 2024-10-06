@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://inc85fvno12m"]
+
+[node name="MoveLabel" type="Button"]
+text = "Lorem Ipsum"

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw2op1ig2d5ng"]
+
+[ext_resource type="Texture2D" uid="uid://dsoai2cxb3vjj" path="res://assets/openmoji1F535_p.png" id="1_cv1ms"]
+
+[node name="BlueCircle" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.028, 0.028)
+texture = ExtResource("1_cv1ms")
