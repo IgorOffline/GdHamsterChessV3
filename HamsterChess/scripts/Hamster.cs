@@ -57,32 +57,31 @@ public partial class Hamster : Node2D
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
         
         var dict = _gameMaster.PLegalMoves.PLegalMoves;
-        foreach (var kv in dict)
+        foreach (var key in dict.Keys)
         {
-            foreach (var value in kv.Value)
+            var moveButton = moveButtonScene.Instantiate<Button>();
+            moveButton.Text = key.ToShortString();
+            moveButton.ButtonDown += () =>
             {
-                GD.Print($"__{kv.Key}__{value}");
-                
-                var moveButton = moveButtonScene.Instantiate<Button>();
-                moveButton.Text = $"{kv.Key.ToShortString()}-{value.ToShortString()}";
-                moveButton.ButtonDown += () =>
-                {
-                    GD.Print(moveButton.Text);
+                GD.Print(moveButton.Text);
                     
-                    ClearFromToIndicators();
+                ClearFromToIndicators();
 
-                    var newHand = _handScene.Instantiate<Node2D>();
-                    var newHandPosition = SquareToPosition(kv.Key, true);
-                    newHand.Position = newHandPosition;
-                    AddChild(newHand);
-                    
+                var newHand = _handScene.Instantiate<Node2D>();
+                var newHandPosition = SquareToPosition(key, true);
+                newHand.Position = newHandPosition;
+                AddChild(newHand);
+
+                var values = dict[key];
+                foreach (var value in values)
+                {
                     var newBlueCircle = _blueCircleScene.Instantiate<Node2D>();
                     var newBlueCirclePosition = SquareToPosition(value, false);
                     newBlueCircle.Position = newBlueCirclePosition;
                     AddChild(newBlueCircle);
-                };
-                _scrollable.AddChild(moveButton);
-            }
+                }
+            };
+            _scrollable.AddChild(moveButton);
         }
     }
 
