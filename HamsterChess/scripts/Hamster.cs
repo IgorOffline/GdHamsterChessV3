@@ -10,7 +10,9 @@ public partial class Hamster : Node2D
     private PackedScene? _whiteKingScene;
     private PackedScene? _whiteRookScene;
     private PackedScene? _blackKingScene;
-
+    private PackedScene? _handScene;
+    private PackedScene? _blueCircleScene;
+    
     private GameMaster? _gameMaster;
     
     private double _uiRefreshTimer;
@@ -22,6 +24,8 @@ public partial class Hamster : Node2D
         _whiteKingScene = GD.Load<PackedScene>("res://scenes/piece_wk.tscn");
         _whiteRookScene = GD.Load<PackedScene>("res://scenes/piece_wr.tscn");
         _blackKingScene = GD.Load<PackedScene>("res://scenes/piece_bk.tscn");
+        _handScene = GD.Load<PackedScene>("res://scenes/hand.tscn");
+        _blueCircleScene = GD.Load<PackedScene>("res://scenes/blue_circle.tscn");
         
         Ready2(boardSquares);
         
@@ -41,6 +45,32 @@ public partial class Hamster : Node2D
                     newPiece.Position = squareNode2D!.Position;
                     AddChild(newPiece);
                 }
+            }
+        }
+
+        var scrollable = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer");
+        foreach (var node in scrollable.GetChildren())
+        {
+            scrollable.RemoveChild(node);
+            node.QueueFree();
+        }
+
+        var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
+        var moveButtonNode = moveButtonScene.Instantiate<Node2D>();
+        var moveButton = moveButtonNode.GetNode<Button>("Button");
+        moveButton.Text = "777 Lorem Ipsum 888";
+        moveButton.ButtonDown += () =>
+        {
+            GD.Print(moveButton.Text);
+        };
+        scrollable.AddChild(moveButtonNode);
+        
+        var dict = _gameMaster.PLegalMoves.PLegalMoves;
+        foreach (var kv in dict)
+        {
+            foreach (var value in kv.Value)
+            {
+                GD.Print($"__{kv.Key}__{value}");
             }
         }
     }
@@ -93,7 +123,7 @@ public partial class Hamster : Node2D
         if (_uiRefreshTimer > _uiRefreshTimerMax)
         {
             var labelParent = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/VBoxContainer");
-            labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{("White to move:"),-23} {_gameMaster!.WhiteToMove.ToString()}";
+            labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{"White to move:",-23} {_gameMaster!.WhiteToMove.ToString()}";
             labelParent.GetNode<RichTextLabel>("LabelWKCheck").Text = $"{"White in check:",-24} {_gameMaster.WhiteKingInCheck.ToString()}";
             labelParent.GetNode<RichTextLabel>("LabelBKCheck").Text = $"{"Black in check:",-25} {_gameMaster.BlackKingInCheck.ToString()}";
             labelParent.GetNode<RichTextLabel>("LabelWKCheckmate").Text = $"{"White checkmated:",-19} {_gameMaster.WhiteKingCheckmated.ToString()}";

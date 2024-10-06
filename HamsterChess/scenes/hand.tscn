@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce0pqj7pxwq2o"]
+
+[ext_resource type="Texture2D" uid="uid://cwbrfv0ulfogw" path="res://assets/openmoji1F449yellow_p.png" id="1_eydus"]
+
+[node name="Hand" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.042, 0.042)
+texture = ExtResource("1_eydus")
