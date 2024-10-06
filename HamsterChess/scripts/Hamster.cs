@@ -72,9 +72,14 @@ public partial class Hamster : Node2D
                     ClearFromToIndicators();
 
                     var newHand = _handScene.Instantiate<Node2D>();
-                    var newHandPosition = SquareToPosition(kv.Key);
+                    var newHandPosition = SquareToPosition(kv.Key, true);
                     newHand.Position = newHandPosition;
                     AddChild(newHand);
+                    
+                    var newBlueCircle = _blueCircleScene.Instantiate<Node2D>();
+                    var newBlueCirclePosition = SquareToPosition(value, false);
+                    newBlueCircle.Position = newBlueCirclePosition;
+                    AddChild(newBlueCircle);
                 };
                 _scrollable.AddChild(moveButton);
             }
@@ -92,15 +97,23 @@ public partial class Hamster : Node2D
 
     private void ClearFromToIndicators()
     {
-        //
+        var children = GetChildren();
+        foreach (var child in children)
+        {
+            if (child.Name.ToString().Contains("Hand") || child.Name.ToString().Contains("BlueCircle"))
+            {
+                RemoveChild(child);
+                child.QueueFree();
+            }
+        }
     }
 
-    private Vector2 SquareToPosition(Square square)
+    private Vector2 SquareToPosition(Square square, bool isHand)
     {
         var letterIndex = LetterNumber.GetLetterIndex(square.Letter);
-        var letterPosition = 50 * letterIndex + 25;
+        var letterPosition = 50 * letterIndex + (isHand ? 25 : 35);
         var numberIndex = LetterNumber.GetNumberIndexReverse(square.Number);
-        var numberPosition = 50 * numberIndex + 50;
+        var numberPosition = 50 * numberIndex + (isHand ? 50 : 35);
         
         return new Vector2(letterPosition, numberPosition);
     }
