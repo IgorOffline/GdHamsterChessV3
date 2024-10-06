@@ -68,6 +68,7 @@ public partial class Hamster : Node2D
                 ClearFromToIndicators();
 
                 var newHand = _handScene.Instantiate<Node2D>();
+                newHand.Name = "Hand_" + Guid.NewGuid();
                 var newHandPosition = SquareToPosition(key, true);
                 newHand.Position = newHandPosition;
                 AddChild(newHand);
@@ -76,6 +77,7 @@ public partial class Hamster : Node2D
                 foreach (var value in values)
                 {
                     var newBlueCircle = _blueCircleScene.Instantiate<Node2D>();
+                    newBlueCircle.Name = "BlueCircle_" + Guid.NewGuid();
                     var newBlueCirclePosition = SquareToPosition(value, false);
                     newBlueCircle.Position = newBlueCirclePosition;
                     AddChild(newBlueCircle);
