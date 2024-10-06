@@ -54,16 +54,8 @@ public partial class Hamster : Node2D
             scrollable.RemoveChild(node);
             node.QueueFree();
         }
-
+        
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
-        var moveButtonNode = moveButtonScene.Instantiate<Node2D>();
-        var moveButton = moveButtonNode.GetNode<Button>("Button");
-        moveButton.Text = "777 Lorem Ipsum 888";
-        moveButton.ButtonDown += () =>
-        {
-            GD.Print(moveButton.Text);
-        };
-        scrollable.AddChild(moveButtonNode);
         
         var dict = _gameMaster.PLegalMoves.PLegalMoves;
         foreach (var kv in dict)
@@ -71,6 +63,14 @@ public partial class Hamster : Node2D
             foreach (var value in kv.Value)
             {
                 GD.Print($"__{kv.Key}__{value}");
+                
+                var moveButton = moveButtonScene.Instantiate<Button>();
+                moveButton.Text = $"{kv.Key.ToShortString()}{value.ToShortString()}";
+                moveButton.ButtonDown += () =>
+                {
+                    GD.Print(moveButton.Text);
+                };
+                scrollable.AddChild(moveButton);
             }
         }
     }

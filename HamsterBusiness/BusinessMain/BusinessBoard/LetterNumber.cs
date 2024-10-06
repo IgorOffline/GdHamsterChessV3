@@ -83,6 +83,38 @@ public static class LetterNumber
             _ => throw new ArgumentException(Messages.UnknownNumber)
         };
     }
+
+    public static string GetLetterToShortString(Letter letter)
+    {
+        return letter switch
+        {
+            Letter.A => "A",
+            Letter.B => "B",
+            Letter.C => "C",
+            Letter.D => "D",
+            Letter.E => "E",
+            Letter.F => "F",
+            Letter.G => "G",
+            Letter.H => "H",
+            _ => throw new ArgumentException(Messages.UnknownLetter)
+        };
+    }
+
+    public static string GetNumberToShortString(Number2 number)
+    {
+        return number switch
+        {
+            Number2.N1 => "1",
+            Number2.N2 => "2",
+            Number2.N3 => "3",
+            Number2.N4 => "4",
+            Number2.N5 => "5",
+            Number2.N6 => "6",
+            Number2.N7 => "7",
+            Number2.N8 => "8",
+            _ => throw new ArgumentException(Messages.UnknownNumber)
+        };
+    }
     
     public static bool IsLetterNumberIllegal(int index) {
         return index is < 0 or > 7;

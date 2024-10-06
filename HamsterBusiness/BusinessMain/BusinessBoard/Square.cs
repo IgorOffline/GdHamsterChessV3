@@ -38,6 +38,11 @@ public class Square(Letter letter, Number2 number, Piece piece, PieceColor piece
         return HashCode.Combine((int)Letter, (int)Number, (int)Piece, (int)PieceColor);
     }
 
+    public string ToShortString()
+    {
+        return $"{LetterNumber.GetLetterToShortString(Letter)}{LetterNumber.GetNumberToShortString(Number)}";
+    }
+    
     public override string ToString()
     {
         return $"Square(Letter={Letter}, Number={Number}, Piece={Piece}, PieceColor={PieceColor})";
