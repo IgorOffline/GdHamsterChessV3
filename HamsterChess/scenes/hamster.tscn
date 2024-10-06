@@ -19,113 +19,143 @@ offset_top = 15.0
 offset_right = 1264.0
 offset_bottom = 433.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="LabelWhiteToMove" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+
+[node name="LabelWhiteToMove" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Qwe"
 fit_content = true
 
-[node name="LabelWKCheck" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="LabelWKCheck" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Ewq"
 fit_content = true
 
-[node name="LabelBKCheck" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="LabelBKCheck" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Qwe"
 fit_content = true
 
-[node name="LabelWKCheckmate" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="LabelWKCheckmate" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Ewq"
 fit_content = true
 
-[node name="LabelBKCheckmate" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="LabelBKCheckmate" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Qwe"
 fit_content = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 270)
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(535, 270)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel5" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel6" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel6" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel7" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel7" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel8" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel8" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel9" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel9" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel10" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel10" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel11" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel11" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel12" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel12" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel13" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel13" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel14" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel14" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true
 
-[node name="RichTextLabel15" type="RichTextLabel" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="RichTextLabel15" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+fit_content = true
+
+[node name="RichTextLabel16" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+fit_content = true
+
+[node name="RichTextLabel17" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+fit_content = true
+
+[node name="RichTextLabel18" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+fit_content = true
+
+[node name="RichTextLabel19" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+fit_content = true
+
+[node name="RichTextLabel20" type="RichTextLabel" parent="PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lorem Ipsum"
 fit_content = true

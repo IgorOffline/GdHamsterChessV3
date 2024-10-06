@@ -92,7 +92,7 @@ public partial class Hamster : Node2D
 
         if (_uiRefreshTimer > _uiRefreshTimerMax)
         {
-            var labelParent = GetNode<VBoxContainer>("PanelContainer/VBoxContainer");
+            var labelParent = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/VBoxContainer");
             labelParent.GetNode<RichTextLabel>("LabelWhiteToMove").Text = $"{("White to move:"),-23} {_gameMaster!.WhiteToMove.ToString()}";
             labelParent.GetNode<RichTextLabel>("LabelWKCheck").Text = $"{"White in check:",-24} {_gameMaster.WhiteKingInCheck.ToString()}";
             labelParent.GetNode<RichTextLabel>("LabelBKCheck").Text = $"{"Black in check:",-25} {_gameMaster.BlackKingInCheck.ToString()}";
