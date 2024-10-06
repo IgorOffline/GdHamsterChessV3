@@ -57,27 +57,33 @@ public partial class Hamster : Node2D
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
         
         var dict = _gameMaster.PLegalMoves.PLegalMoves;
-        foreach (var kv in dict)
+        foreach (var key in dict.Keys)
         {
-            foreach (var value in kv.Value)
+            var moveButton = moveButtonScene.Instantiate<Button>();
+            moveButton.Text = key.ToShortString();
+            moveButton.ButtonDown += () =>
             {
-                GD.Print($"__{kv.Key}__{value}");
-                
-                var moveButton = moveButtonScene.Instantiate<Button>();
-                moveButton.Text = $"{kv.Key.ToShortString()}-{value.ToShortString()}";
-                moveButton.ButtonDown += () =>
-                {
-                    GD.Print(moveButton.Text);
+                GD.Print(moveButton.Text);
                     
-                    ClearFromToIndicators();
+                ClearFromToIndicators();
 
-                    var newHand = _handScene.Instantiate<Node2D>();
-                    var newHandPosition = SquareToPosition(kv.Key);
-                    newHand.Position = newHandPosition;
-                    AddChild(newHand);
-                };
-                _scrollable.AddChild(moveButton);
-            }
+                var newHand = _handScene.Instantiate<Node2D>();
+                newHand.Name = "Hand_" + Guid.NewGuid();
+                var newHandPosition = SquareToPosition(key, true);
+                newHand.Position = newHandPosition;
+                AddChild(newHand);
+
+                var values = dict[key];
+                foreach (var value in values)
+                {
+                    var newBlueCircle = _blueCircleScene.Instantiate<Node2D>();
+                    newBlueCircle.Name = "BlueCircle_" + Guid.NewGuid();
+                    var newBlueCirclePosition = SquareToPosition(value, false);
+                    newBlueCircle.Position = newBlueCirclePosition;
+                    AddChild(newBlueCircle);
+                }
+            };
+            _scrollable.AddChild(moveButton);
         }
     }
 
@@ -92,15 +98,23 @@ public partial class Hamster : Node2D
 
     private void ClearFromToIndicators()
     {
-        //
+        var children = GetChildren();
+        foreach (var child in children)
+        {
+            if (child.Name.ToString().Contains("Hand") || child.Name.ToString().Contains("BlueCircle"))
+            {
+                RemoveChild(child);
+                child.QueueFree();
+            }
+        }
     }
 
-    private Vector2 SquareToPosition(Square square)
+    private Vector2 SquareToPosition(Square square, bool isHand)
     {
         var letterIndex = LetterNumber.GetLetterIndex(square.Letter);
-        var letterPosition = 50 * letterIndex + 25;
+        var letterPosition = 50 * letterIndex + (isHand ? 25 : 35);
         var numberIndex = LetterNumber.GetNumberIndexReverse(square.Number);
-        var numberPosition = 50 * numberIndex + 50;
+        var numberPosition = 50 * numberIndex + (isHand ? 50 : 35);
         
         return new Vector2(letterPosition, numberPosition);
     }

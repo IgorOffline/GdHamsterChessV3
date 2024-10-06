@@ -40,7 +40,9 @@ public class Square(Letter letter, Number2 number, Piece piece, PieceColor piece
 
     public string ToShortString()
     {
-        return $"{LetterNumber.GetLetterToShortString(Letter)}{LetterNumber.GetNumberToShortString(Number)}";
+        var pieceAndColor = $"{PieceAndColor.GetPieceColorShortString(PieceColor)}{PieceAndColor.GetPieceShortString(Piece)}";
+        var letterNumber = $"{LetterNumber.GetLetterToShortString(Letter)}{LetterNumber.GetNumberToShortString(Number)}";
+        return $"{pieceAndColor}-{letterNumber}";
     }
     
     public override string ToString()
