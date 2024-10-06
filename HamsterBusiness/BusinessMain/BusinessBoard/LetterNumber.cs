@@ -4,38 +4,6 @@ namespace HamsterBusiness.BusinessMain.BusinessBoard;
 
 public static class LetterNumber
 {
-    public static Letter GetLetterEnumForLabelPart(char ch)
-    {
-        return ch switch
-        {
-            'A' => Letter.A,
-            'B' => Letter.B,
-            'C' => Letter.C,
-            'D' => Letter.D,
-            'E' => Letter.E,
-            'F' => Letter.F,
-            'G' => Letter.G,
-            'H' => Letter.H,
-            _ => throw new ArgumentException(Messages.UnknownLetter)
-        };
-    }
-    
-    public static Number2 GetNumberEnumForLabelPart(char ch)
-    {
-        return ch switch
-        {
-            '1' => Number2.N1,
-            '2' => Number2.N2,
-            '3' => Number2.N3,
-            '4' => Number2.N4,
-            '5' => Number2.N5,
-            '6' => Number2.N6,
-            '7' => Number2.N7,
-            '8' => Number2.N8,
-            _ => throw new ArgumentException(Messages.UnknownNumber)
-        };
-    }
-    
     public static Letter GetLetterEnum(int letter)
     {
         return letter switch
