@@ -15,6 +15,8 @@ public partial class Hamster : Node2D
     
     private GameMaster? _gameMaster;
     
+    private VBoxContainer? _scrollable;
+    
     private double _uiRefreshTimer;
     private double _uiRefreshTimerMax = 0.25;
     
@@ -30,6 +32,8 @@ public partial class Hamster : Node2D
         Ready2(boardSquares);
         
         _gameMaster = new GameMaster();
+        
+        _scrollable = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer");
         
         for (var row = 0; row < 8; row++)
         {
@@ -48,12 +52,7 @@ public partial class Hamster : Node2D
             }
         }
 
-        var scrollable = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer");
-        foreach (var node in scrollable.GetChildren())
-        {
-            scrollable.RemoveChild(node);
-            node.QueueFree();
-        }
+        ClearScrollable();
         
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
         
@@ -65,16 +64,47 @@ public partial class Hamster : Node2D
                 GD.Print($"__{kv.Key}__{value}");
                 
                 var moveButton = moveButtonScene.Instantiate<Button>();
-                moveButton.Text = $"{kv.Key.ToShortString()}{value.ToShortString()}";
+                moveButton.Text = $"{kv.Key.ToShortString()}-{value.ToShortString()}";
                 moveButton.ButtonDown += () =>
                 {
                     GD.Print(moveButton.Text);
+                    
+                    ClearFromToIndicators();
+
+                    var newHand = _handScene.Instantiate<Node2D>();
+                    var newHandPosition = SquareToPosition(kv.Key);
+                    newHand.Position = newHandPosition;
+                    AddChild(newHand);
                 };
-                scrollable.AddChild(moveButton);
+                _scrollable.AddChild(moveButton);
             }
         }
     }
 
+    private void ClearScrollable()
+    {
+        foreach (var node in _scrollable!.GetChildren())
+        {
+            _scrollable.RemoveChild(node);
+            node.QueueFree();
+        }
+    }
+
+    private void ClearFromToIndicators()
+    {
+        //
+    }
+
+    private Vector2 SquareToPosition(Square square)
+    {
+        var letterIndex = LetterNumber.GetLetterIndex(square.Letter);
+        var letterPosition = 50 * letterIndex + 25;
+        var numberIndex = LetterNumber.GetNumberIndexReverse(square.Number);
+        var numberPosition = 50 * numberIndex + 50;
+        
+        return new Vector2(letterPosition, numberPosition);
+    }
+    
     private Node2D Instantiate(Square square)
     {
         if (square.Piece == Piece.King)

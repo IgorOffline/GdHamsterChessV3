@@ -51,6 +51,22 @@ public static class LetterNumber
             _ => throw new ArgumentException(Messages.UnknownNumber)
         };
     }
+
+    public static int GetLetterIndex(Letter letter)
+    {
+        return letter switch
+        {
+            Letter.A => 0,
+            Letter.B => 1,
+            Letter.C => 2,
+            Letter.D => 3,
+            Letter.E => 4,
+            Letter.F => 5,
+            Letter.G => 6,
+            Letter.H => 7,
+            _ => throw new ArgumentException(Messages.UnknownLetter)
+        };
+    }
     
     public static Number2 GetNumberEnumReverse(int number)
     {
