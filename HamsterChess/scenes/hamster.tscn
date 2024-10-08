@@ -52,6 +52,15 @@ layout_mode = 2
 text = "Qwe"
 fit_content = true
 
+[node name="TxtNextMove" type="TextEdit" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+placeholder_text = "A0-H9"
+
+[node name="BtnNextMove" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(535, 270)
 layout_mode = 2

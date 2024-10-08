@@ -22,6 +22,22 @@ public partial class Hamster : Node2D
     
     public override void _Ready()
     {
+        PrepareInit();
+
+        ClearScrollable();
+        
+        PrepareScrollable();
+
+        var txtNextMove = GetNode<TextEdit>("PanelContainer/HBoxContainer/VBoxContainer/TxtNextMove");
+        var btnNextMove = GetNode<Button>("PanelContainer/HBoxContainer/VBoxContainer/BtnNextMove");
+        btnNextMove.ButtonDown += () =>
+        {
+            GD.Print($"txtNextMove.Text:{txtNextMove.Text}");
+        };
+    }
+
+    private void PrepareInit()
+    {
         var boardSquares = GetNode<Node2D>("Board").GetChildren();
         _whiteKingScene = GD.Load<PackedScene>("res://scenes/piece_wk.tscn");
         _whiteRookScene = GD.Load<PackedScene>("res://scenes/piece_wr.tscn");
@@ -51,9 +67,51 @@ public partial class Hamster : Node2D
                 }
             }
         }
+    }
+    
+    private Node2D Instantiate(Square square)
+    {
+        if (square.Piece == Piece.King)
+        {
+            if (square.PieceColor == PieceColor.White)
+            {
+                return _whiteKingScene!.Instantiate<Node2D>();
+            }
+            
+            return _blackKingScene!.Instantiate<Node2D>();
+        }
 
-        ClearScrollable();
+        if (square.Piece == Piece.Rook)
+        {
+            return _whiteRookScene!.Instantiate<Node2D>();
+        }
+
+        throw new ArgumentException("Invalid square");
+    }
+    
+    private void Ready2(Array<Node> boardSquares)
+    {
+        GD.Print("Hamster; " + Messages.LoremIpsum);
+
+        //GD.Print($"boardSquares.Count= {boardSquares.Count}");
+        //foreach (var square in boardSquares)
+        //{
+        //    GD.Print(square.Name.ToString());
+        //}
         
+        var squareLabelScene = ResourceLoader.Load<PackedScene>("scenes/square_label.tscn");
+        foreach (var square in boardSquares)
+        {
+            var square2D = square as Node2D;
+            var squareLabel = squareLabelScene.Instantiate<Node2D>();
+            squareLabel.GetNode<RichTextLabel>("Label").Text = $"[color=black]{square.GetName()}[/color]";
+            squareLabel.Position = new Vector2(square2D!.Position.X - 27, square2D.Position.Y + 7);
+            AddChild(squareLabel);
+        }
+    }
+
+    private void PrepareScrollable()
+    {
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
         
         var dict = _gameMaster.PLegalMoves.PLegalMoves;
@@ -117,47 +175,6 @@ public partial class Hamster : Node2D
         var numberPosition = 50 * numberIndex + (isHand ? 50 : 35);
         
         return new Vector2(letterPosition, numberPosition);
-    }
-    
-    private Node2D Instantiate(Square square)
-    {
-        if (square.Piece == Piece.King)
-        {
-            if (square.PieceColor == PieceColor.White)
-            {
-                return _whiteKingScene!.Instantiate<Node2D>();
-            }
-            
-            return _blackKingScene!.Instantiate<Node2D>();
-        }
-
-        if (square.Piece == Piece.Rook)
-        {
-            return _whiteRookScene!.Instantiate<Node2D>();
-        }
-
-        throw new ArgumentException("Invalid square");
-    }
-
-    private void Ready2(Array<Node> boardSquares)
-    {
-        GD.Print("Hamster; " + Messages.LoremIpsum);
-
-        //GD.Print($"boardSquares.Count= {boardSquares.Count}");
-        //foreach (var square in boardSquares)
-        //{
-        //    GD.Print(square.Name.ToString());
-        //}
-        
-        var squareLabelScene = ResourceLoader.Load<PackedScene>("scenes/square_label.tscn");
-        foreach (var square in boardSquares)
-        {
-            var square2D = square as Node2D;
-            var squareLabel = squareLabelScene.Instantiate<Node2D>();
-            squareLabel.GetNode<RichTextLabel>("Label").Text = $"[color=black]{square.GetName()}[/color]";
-            squareLabel.Position = new Vector2(square2D!.Position.X - 27, square2D.Position.Y + 7);
-            AddChild(squareLabel);
-        }
     }
     
     public override void _Process(double delta)
