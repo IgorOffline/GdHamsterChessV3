@@ -29,25 +29,20 @@ public class GameMaster
         PLegalMoves = legalMoves;
     }
     
-    public void MoveAndCalculate(int fromIndex, int toIndex)
+    public void MoveAndCalculate(int fromRow, int fromColumn, int toRow, int toColumn)
     {
-        FromSquare = null;
-        ToSquare = null;
-        for (var row = 0; row < 8; row++)
+        if (fromRow == -1 && fromColumn == -1 && toRow == -1 && toColumn == -1)
         {
-            for (var col = 0; col < 8; col++)
-            {
-                var sq = PBoard.PBoard[row][col];
-                if (sq.GetIndex() == fromIndex && sq.Piece != Piece.None)
-                {
-                    FromSquare = sq;
-                }
-                if (sq.GetIndex() == toIndex)
-                {
-                    ToSquare = sq;
-                }
-            }
+            return;
         }
+        
+        FromSquare = PBoard.PBoard[fromRow][fromColumn];
+        if (FromSquare.Piece == Piece.None)
+        {
+            FromSquare = null;
+        }
+        ToSquare = PBoard.PBoard[toRow][toColumn];
+        
         MoveAndCalculateInner();
     }
     
