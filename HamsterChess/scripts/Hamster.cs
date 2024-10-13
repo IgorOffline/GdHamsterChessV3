@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using Godot.Collections;
 using HamsterBusiness.BusinessMain.BusinessBoard;
 using HamsterBusiness.BusinessMain.BusinessGame;
 using HamsterBusiness.BusinessMain.BusinessUtil;
@@ -20,13 +19,21 @@ public partial class Hamster : Node2D
     private double _uiRefreshTimer;
     private double _uiRefreshTimerMax = 0.25;
     
+    private const string HandPrefix = "Hand_";
+    private const string BlueCirclePrefix = "BlueCircle_";
+    private const string PiecePrefix = "Piece_";
+    
     public override void _Ready()
     {
-        PrepareInit();
+        _gameMaster = new GameMaster();
+        
+        AddSquareLabels();
+        
+        AddPieces();
 
         ClearScrollable();
         
-        PrepareScrollable();
+        AddScrollableElements();
 
         var txtNextMove = GetNode<TextEdit>("PanelContainer/HBoxContainer/VBoxContainer/TxtNextMove");
         var btnNextMove = GetNode<Button>("PanelContainer/HBoxContainer/VBoxContainer/BtnNextMove");
@@ -63,13 +70,28 @@ public partial class Hamster : Node2D
                         }
                     }
                 }
-                
-                _gameMaster!.MoveAndCalculate(fromRow, fromCol, toRow, toCol);
+
+                if (fromRow != -1 && fromCol != -1 && toRow != -1 && toCol != -1)
+                {
+                    _gameMaster!.MoveAndCalculate(fromRow, fromCol, toRow, toCol);
+
+                    ClearPieces();
+                    
+                    ClearScrollable();
+
+                    ClearFromToIndicators();
+                    
+                    AddPieces();
+                    
+                    AddScrollableElements();
+                    
+                    GD.Print("Frontend: MoveAndCalculate Done");
+                }
             }
         };
     }
 
-    private void PrepareInit()
+    private void AddPieces()
     {
         var boardSquares = GetNode<Node2D>("Board").GetChildren();
         _whiteKingScene = GD.Load<PackedScene>("res://scenes/piece_wk.tscn");
@@ -78,26 +100,35 @@ public partial class Hamster : Node2D
         _handScene = GD.Load<PackedScene>("res://scenes/hand.tscn");
         _blueCircleScene = GD.Load<PackedScene>("res://scenes/blue_circle.tscn");
         
-        Ready2(boardSquares);
-        
-        _gameMaster = new GameMaster();
-        
         _scrollable = GetNode<VBoxContainer>("PanelContainer/HBoxContainer/ScrollContainer/VBoxContainer");
         
         for (var row = 0; row < 8; row++)
         {
             for (var column = 0; column < 8; column++)
             {
-                var square = _gameMaster.PBoard.PBoard[row][column];
+                var square = _gameMaster!.PBoard.PBoard[row][column];
                 
                 if (square.Piece != Piece.None)
                 {
                     GD.Print(square);
                     var newPiece = Instantiate(square);
+                    newPiece.Name = PiecePrefix + Guid.NewGuid();
                     var squareNode2D = boardSquares[square.GetIndex()] as Node2D;
                     newPiece.Position = squareNode2D!.Position;
                     AddChild(newPiece);
                 }
+            }
+        }
+    }
+
+    private void ClearPieces()
+    {
+        foreach (var node in GetChildren())
+        {
+            if (node.Name.ToString().StartsWith(PiecePrefix))
+            {
+                RemoveChild(node);
+                node.QueueFree();
             }
         }
     }
@@ -122,15 +153,11 @@ public partial class Hamster : Node2D
         throw new ArgumentException("Invalid square");
     }
     
-    private void Ready2(Array<Node> boardSquares)
+    private void AddSquareLabels()
     {
         GD.Print("Hamster; " + Messages.LoremIpsum);
-
-        //GD.Print($"boardSquares.Count= {boardSquares.Count}");
-        //foreach (var square in boardSquares)
-        //{
-        //    GD.Print(square.Name.ToString());
-        //}
+        
+        var boardSquares = GetNode<Node2D>("Board").GetChildren();
         
         var squareLabelScene = ResourceLoader.Load<PackedScene>("scenes/square_label.tscn");
         foreach (var square in boardSquares)
@@ -143,11 +170,11 @@ public partial class Hamster : Node2D
         }
     }
 
-    private void PrepareScrollable()
+    private void AddScrollableElements()
     {
         var moveButtonScene = GD.Load<PackedScene>("res://scenes/move_label.tscn");
         
-        var dict = _gameMaster.PLegalMoves.PLegalMoves;
+        var dict = _gameMaster!.PLegalMoves.PLegalMoves;
         foreach (var key in dict.Keys)
         {
             var moveButton = moveButtonScene.Instantiate<Button>();
@@ -158,8 +185,8 @@ public partial class Hamster : Node2D
                     
                 ClearFromToIndicators();
 
-                var newHand = _handScene.Instantiate<Node2D>();
-                newHand.Name = "Hand_" + Guid.NewGuid();
+                var newHand = _handScene!.Instantiate<Node2D>();
+                newHand.Name = HandPrefix + Guid.NewGuid();
                 var newHandPosition = SquareToPosition(key, true);
                 newHand.Position = newHandPosition;
                 AddChild(newHand);
@@ -167,14 +194,14 @@ public partial class Hamster : Node2D
                 var values = dict[key];
                 foreach (var value in values)
                 {
-                    var newBlueCircle = _blueCircleScene.Instantiate<Node2D>();
-                    newBlueCircle.Name = "BlueCircle_" + Guid.NewGuid();
+                    var newBlueCircle = _blueCircleScene!.Instantiate<Node2D>();
+                    newBlueCircle.Name = BlueCirclePrefix + Guid.NewGuid();
                     var newBlueCirclePosition = SquareToPosition(value, false);
                     newBlueCircle.Position = newBlueCirclePosition;
                     AddChild(newBlueCircle);
                 }
             };
-            _scrollable.AddChild(moveButton);
+            _scrollable!.AddChild(moveButton);
         }
     }
 
@@ -192,7 +219,7 @@ public partial class Hamster : Node2D
         var children = GetChildren();
         foreach (var child in children)
         {
-            if (child.Name.ToString().Contains("Hand") || child.Name.ToString().Contains("BlueCircle"))
+            if (child.Name.ToString().StartsWith(HandPrefix) || child.Name.ToString().StartsWith(BlueCirclePrefix))
             {
                 RemoveChild(child);
                 child.QueueFree();
