@@ -32,7 +32,40 @@ public partial class Hamster : Node2D
         var btnNextMove = GetNode<Button>("PanelContainer/HBoxContainer/VBoxContainer/BtnNextMove");
         btnNextMove.ButtonDown += () =>
         {
-            GD.Print($"txtNextMove.Text:{txtNextMove.Text}");
+            if (txtNextMove.Text.Length == 5)
+            {
+                GD.Print($"txtNextMove.Text:{txtNextMove.Text}");
+
+                var fromRow = -1;
+                var fromCol = -1;
+                var toRow = -1;
+                var toCol = -1;
+                
+                var split = txtNextMove.Text.Split("-");
+                var fromLetterNumberString = split[0];
+                var toLetterNumberString = split[1];
+
+                for (var row = 0; row < 8; row++)
+                {
+                    for (var col = 0; col < 8; col++)
+                    {
+                        var currentLetterNumber = _gameMaster!.PBoard.PBoard[row][col].ToLetterNumberString();
+                        
+                        if (fromLetterNumberString.Equals(currentLetterNumber))
+                        {
+                            fromRow = row;
+                            fromCol = col;
+                        }
+                        else if (toLetterNumberString.Equals(currentLetterNumber))
+                        {
+                            toRow = row;
+                            toCol = col;
+                        }
+                    }
+                }
+                
+                _gameMaster!.MoveAndCalculate(fromRow, fromCol, toRow, toCol);
+            }
         };
     }
 
