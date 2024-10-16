@@ -13,8 +13,8 @@ public static class FindSquare
         
         var doWhilePieces = new List<Piece>
         { 
-            Piece.Rook, 
-            Piece.Bishop   
+            Piece.Rook,
+            Piece.Bishop
         };
 
         Square? square = new Square(pieceSquare.Letter, pieceSquare.Number, Piece.None, PieceColor.None);

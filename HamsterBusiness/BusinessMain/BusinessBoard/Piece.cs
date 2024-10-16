@@ -5,5 +5,7 @@ public enum Piece : ushort
     None,
     King,
     Rook,
-    Bishop // TODO FindSquare
+    Bishop, // TODO FindSquare
+    Knight,
+    Pawn
 }
