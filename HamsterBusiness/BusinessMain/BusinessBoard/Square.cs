@@ -16,10 +16,6 @@ public class Square(Letter letter, Number2 number, Piece piece, PieceColor piece
         return letter1 == letter2 && number1 == number2;
     }
     
-    public Square Copy() {
-        return new Square(letter, number, piece, pieceColor);
-    }
-    
     protected bool Equals(Square other)
     {
         return Letter == other.Letter && Number == other.Number && Piece == other.Piece && PieceColor == other.PieceColor;

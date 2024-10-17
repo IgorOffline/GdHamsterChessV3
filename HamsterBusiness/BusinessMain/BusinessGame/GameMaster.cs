@@ -48,9 +48,9 @@ public class GameMaster
     
     private void MoveAndCalculateInner()
     {
-        if (PLegalMoves.PLegalMoves.TryGetValue(FromSquare!, out List<Square>? value))
+        if (PLegalMoves.PLegalMoves.TryGetValue(FromSquare!, out List<Square>? pieceLegalMoves))
         {
-            foreach (var pieceLegalMove in value)
+            foreach (var pieceLegalMove in pieceLegalMoves)
             {
                 if (ToSquareEquals(pieceLegalMove)) {
                     PLegalMoves.Move(this);

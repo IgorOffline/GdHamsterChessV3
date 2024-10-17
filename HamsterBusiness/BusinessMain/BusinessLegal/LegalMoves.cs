@@ -7,16 +7,14 @@ namespace HamsterBusiness.BusinessMain.BusinessLegal;
 
 public class LegalMoves
 {
-    public Dictionary<Square, List<Square>> PLegalMoves { get; set; }
+    public Dictionary<Square, List<Square>> PLegalMoves { get; set; } = new();
     
     public void Move(GameMaster gameMaster)
     {
-        var fromSquare = gameMaster.FromSquare!;
-        var toSquare = gameMaster.ToSquare!;
-        toSquare.Piece = fromSquare.Piece;
-        toSquare.PieceColor = fromSquare.PieceColor;
-        fromSquare.Piece = Piece.None;
-        fromSquare.PieceColor = PieceColor.None;
+        gameMaster.ToSquare!.Piece = gameMaster.FromSquare!.Piece;
+        gameMaster.ToSquare!.PieceColor = gameMaster.FromSquare!.PieceColor;
+        gameMaster.FromSquare!.Piece = Piece.None;
+        gameMaster.FromSquare!.PieceColor = PieceColor.None;
     }
     
     public void Calculate(GameMaster gameMaster, bool switchWhiteToMove)
@@ -61,7 +59,54 @@ public class LegalMoves
                         gameMaster.BlackKingInCheck = pieceColor == PieceColor.Black;
                     }
                 }
-                // TODO Pieces
+                else if (boardSquare.Piece == Piece.Bishop && boardSquare.PieceColor == pieceColor)
+                {
+                    var bishopMoves = Bishop.BishopMoves(boardSquare, gameMaster.PBoard);
+                    phase1LegalMoves[boardSquare] = bishopMoves.MovementSquares;
+                    kingLegalMoves.RemoveAll(square => square.Letter == boardSquare.Letter && square.Number == boardSquare.Number);
+                }
+                else if (boardSquare.Piece == Piece.Bishop && boardSquare.PieceColor == oppositePieceColor)
+                {
+                    var oppositeBishopMoves = Bishop.BishopMoves(boardSquare, gameMaster.PBoard);
+                    kingLegalMoves.RemoveAll(e => oppositeBishopMoves.MovementSquares.Contains(e));
+                    if (oppositeBishopMoves.OpponentsKingInCheck)
+                    {
+                        gameMaster.WhiteKingInCheck = pieceColor == PieceColor.White;
+                        gameMaster.BlackKingInCheck = pieceColor == PieceColor.Black;
+                    }
+                }
+                else if (boardSquare.Piece == Piece.Knight && boardSquare.PieceColor == pieceColor)
+                {
+                    var knightMoves = Knight.KnightMoves(boardSquare, gameMaster.PBoard);
+                    phase1LegalMoves[boardSquare] = knightMoves.MovementSquares;
+                    kingLegalMoves.RemoveAll(square => square.Letter == boardSquare.Letter && square.Number == boardSquare.Number);
+                }
+                else if (boardSquare.Piece == Piece.Knight && boardSquare.PieceColor == oppositePieceColor)
+                {
+                    var oppositeKnightMoves = Knight.KnightMoves(boardSquare, gameMaster.PBoard);
+                    kingLegalMoves.RemoveAll(e => oppositeKnightMoves.MovementSquares.Contains(e));
+                    if (oppositeKnightMoves.OpponentsKingInCheck)
+                    {
+                        gameMaster.WhiteKingInCheck = pieceColor == PieceColor.White;
+                        gameMaster.BlackKingInCheck = pieceColor == PieceColor.Black;
+                    }
+                }
+                else if (boardSquare.Piece == Piece.Pawn && boardSquare.PieceColor == pieceColor)
+                {
+                    var pawnMoves = Pawn.PawnMoves(boardSquare, gameMaster.PBoard);
+                    phase1LegalMoves[boardSquare] = pawnMoves.MovementSquares;
+                    kingLegalMoves.RemoveAll(square => square.Letter == boardSquare.Letter && square.Number == boardSquare.Number);
+                }
+                else if (boardSquare.Piece == Piece.Pawn && boardSquare.PieceColor == oppositePieceColor)
+                {
+                    var oppositePawnMoves = Pawn.PawnMoves(boardSquare, gameMaster.PBoard);
+                    kingLegalMoves.RemoveAll(e => oppositePawnMoves.AttackSquares.Contains(e));
+                    if (oppositePawnMoves.OpponentsKingInCheck)
+                    {
+                        gameMaster.WhiteKingInCheck = pieceColor == PieceColor.White;
+                        gameMaster.BlackKingInCheck = pieceColor == PieceColor.Black;
+                    }
+                }
             }
         }
 

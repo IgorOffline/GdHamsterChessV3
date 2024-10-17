@@ -17,9 +17,9 @@ public class Board
     {
         var filledSquares = new List<Square>
         {
-            new(Letter.E, Number2.N3, Piece.King, PieceColor.White),
-            new(Letter.D, Number2.N4, Piece.Rook, PieceColor.White),
-            new(Letter.E, Number2.N6, Piece.King, PieceColor.Black)
+            new(Letter.E, Number2.N6, Piece.King, PieceColor.White),
+            new(Letter.A, Number2.N6, Piece.Rook, PieceColor.White),
+            new(Letter.E, Number2.N8, Piece.King, PieceColor.Black)
         };
 
         for (var row = 0; row < 8; row++)
@@ -256,13 +256,15 @@ public class Board
         return PBoard[nnLetterIndex][col];
     }
     
-    public Board DeepCopy() {
+    public Board DeepCopy()
+    {
         var newBoard = new Square[8][];
-        for (var row = 0; row < 8; row++) {
+        for (var row = 0; row < 8; row++)
+        {
             newBoard[row] = new Square[8];
-            for (var col = 0; col < 8; col++) {
-                var oldSquare = PBoard[row][col];
-                newBoard[row][col] = oldSquare.Copy();
+            for (var col = 0; col < 8; col++)
+            {
+                newBoard[row][col] = new Square(PBoard[row][col].Letter, PBoard[row][col].Number, PBoard[row][col].Piece, PBoard[row][col].PieceColor);
             }
         }
 
