@@ -17,8 +17,8 @@ public class Board
     {
         var filledSquares = new List<Square>
         {
-            new(Letter.E, Number2.N6, Piece.King, PieceColor.White),
-            new(Letter.A, Number2.N6, Piece.Rook, PieceColor.White),
+            new(Letter.F, Number2.N6, Piece.King, PieceColor.White),
+            new(Letter.C, Number2.N5, Piece.Rook, PieceColor.Black),
             new(Letter.E, Number2.N8, Piece.King, PieceColor.Black)
         };
 

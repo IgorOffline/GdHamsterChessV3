@@ -9,6 +9,7 @@ public partial class Hamster : Node2D
     private PackedScene? _whiteKingScene;
     private PackedScene? _whiteRookScene;
     private PackedScene? _blackKingScene;
+    private PackedScene? _blackRookScene;
     private PackedScene? _handScene;
     private PackedScene? _blueCircleScene;
     
@@ -97,6 +98,7 @@ public partial class Hamster : Node2D
         _whiteKingScene = GD.Load<PackedScene>("res://scenes/piece_wk.tscn");
         _whiteRookScene = GD.Load<PackedScene>("res://scenes/piece_wr.tscn");
         _blackKingScene = GD.Load<PackedScene>("res://scenes/piece_bk.tscn");
+        _blackRookScene = GD.Load<PackedScene>("res://scenes/piece_br.tscn");
         _handScene = GD.Load<PackedScene>("res://scenes/hand.tscn");
         _blueCircleScene = GD.Load<PackedScene>("res://scenes/blue_circle.tscn");
         
@@ -135,22 +137,14 @@ public partial class Hamster : Node2D
     
     private Node2D Instantiate(Square square)
     {
-        if (square.Piece == Piece.King)
+        return square.Piece switch
         {
-            if (square.PieceColor == PieceColor.White)
-            {
-                return _whiteKingScene!.Instantiate<Node2D>();
-            }
-            
-            return _blackKingScene!.Instantiate<Node2D>();
-        }
-
-        if (square.Piece == Piece.Rook)
-        {
-            return _whiteRookScene!.Instantiate<Node2D>();
-        }
-
-        throw new ArgumentException("Invalid square");
+            Piece.King when square.PieceColor == PieceColor.White => _whiteKingScene!.Instantiate<Node2D>(),
+            Piece.King => _blackKingScene!.Instantiate<Node2D>(),
+            Piece.Rook when square.PieceColor == PieceColor.White => _whiteRookScene!.Instantiate<Node2D>(),
+            Piece.Rook => _blackRookScene!.Instantiate<Node2D>(),
+            _ => throw new ArgumentException("Invalid square")
+        };
     }
     
     private void AddSquareLabels()
