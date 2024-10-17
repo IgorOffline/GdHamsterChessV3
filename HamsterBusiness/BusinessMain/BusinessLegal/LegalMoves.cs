@@ -7,16 +7,14 @@ namespace HamsterBusiness.BusinessMain.BusinessLegal;
 
 public class LegalMoves
 {
-    public Dictionary<Square, List<Square>> PLegalMoves { get; set; }
+    public Dictionary<Square, List<Square>> PLegalMoves { get; set; } = new();
     
     public void Move(GameMaster gameMaster)
     {
-        var fromSquare = gameMaster.FromSquare!;
-        var toSquare = gameMaster.ToSquare!;
-        toSquare.Piece = fromSquare.Piece;
-        toSquare.PieceColor = fromSquare.PieceColor;
-        fromSquare.Piece = Piece.None;
-        fromSquare.PieceColor = PieceColor.None;
+        gameMaster.ToSquare!.Piece = gameMaster.FromSquare!.Piece;
+        gameMaster.ToSquare!.PieceColor = gameMaster.FromSquare!.PieceColor;
+        gameMaster.FromSquare!.Piece = Piece.None;
+        gameMaster.FromSquare!.PieceColor = PieceColor.None;
     }
     
     public void Calculate(GameMaster gameMaster, bool switchWhiteToMove)
